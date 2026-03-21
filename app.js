@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
-const prisma = require('./lib/prisma');
+const routers = require("./routes");
 
-app.get("/", async (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/users", routers.userRouter);
 
 const PORT = process.env.DEFAULT_PORT || 3000;
 app.listen(PORT, (err) => {
