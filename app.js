@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const routers = require("./routes");
+require('./passport');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/", routers.authRouter);
 app.use("/users", routers.userRouter);
 app.use("/posts", routers.postRouter);
 

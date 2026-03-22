@@ -1,21 +1,22 @@
 const { Router } = require("express");
 const router = new Router();
 const { postController, commentController } = require("../controllers");
+const passport = require('passport');
 
 router.get("/", postController.getAllPosts);
 
-router.post("/", postController.createPost);
+router.post("/", passport.authenticate('jwt', { session: false }), postController.createPost);
 
-router.put("/:postId", postController.updatePost);
+router.put("/:postId", passport.authenticate('jwt', { session: false }), postController.updatePost);
 
-router.delete("/:postId", postController.deletePost);
+router.delete("/:postId", passport.authenticate('jwt', { session: false }), postController.deletePost);
 
 router.get('/comments', commentController.getAllComments); 
 
 router.post('/:postId/comments', commentController.createComment);
 
-router.put('/:postId/comments/:commentId', commentController.updateComment);
+router.put('/:postId/comments/:commentId', passport.authenticate('jwt', { session: false }), commentController.updateComment);
 
-router.delete('/comments/:commentId', commentController.deleteComment);
+router.delete('/comments/:commentId', passport.authenticate('jwt', { session: false }), commentController.deleteComment);
 
 module.exports = router;
