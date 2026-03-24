@@ -1,7 +1,12 @@
 const prisma = require("../lib/prisma");
 
 async function getAllComments(req, res) {
-    const comments = await prisma.comment.findMany();
+    const { postId } = req.params;
+    const comments = await prisma.comment.findMany({
+        where: { postId: Number(postId) },
+        include: { user: true },
+        orderBy: { created_date: "asc" },
+    });
     res.json({ comments });
 }
 

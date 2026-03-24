@@ -11,7 +11,7 @@ router.put("/:postId", passport.authenticate('jwt', { session: false }), postCon
 
 router.delete("/:postId", passport.authenticate('jwt', { session: false }), postController.deletePost);
 
-router.get('/comments', commentController.getAllComments); 
+router.get('/:postId/comments', commentController.getAllComments); 
 
 router.post('/:postId/comments', commentController.createComment);
 
