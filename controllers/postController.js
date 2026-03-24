@@ -1,7 +1,9 @@
 const prisma = require("../lib/prisma");
 
 async function getAllPosts(req, res) {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+        orderBy: { created_date: "asc" },
+    });
     res.json({ posts });
 }
 

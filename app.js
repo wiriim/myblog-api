@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const routers = require("./routes");
-require('./passport');
+const cors = require("cors");
+require("./passport");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
